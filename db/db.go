@@ -3,7 +3,7 @@ package db
 import (
 	"database/sql"
 
-	_"github.com/mattn/go-sqlite3"
+	_ "github.com/mattn/go-sqlite3"
 )
 
 var DB *sql.DB
@@ -29,9 +29,8 @@ func createTables() {
         name TEXT NOT NULL,
         description TEXT NOT NULL, 
         location TEXT NOT NULL,
-        startDate DATETIME NOT NULL,
-        endDate DATETIME NOT NULL,
-        userId INTEGER
+        dateTime DATETIME NOT NULL,
+        user_id INTEGER
     )
     `
 	_, err := DB.Exec(createEventsTable)
