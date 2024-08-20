@@ -53,17 +53,17 @@ func createEvent(context *gin.Context) {
 func updateEvent(context *gin.Context) {
 	eventId, err := strconv.ParseInt(context.Param("id"), 10, 64)
 	if err != nil {
-		context.JSON(http.StatusBadRequest, gin.H{"message": "Could not parse event id."+err.Error()})
+		context.JSON(http.StatusBadRequest, gin.H{"message": "Could not parse event id." + err.Error()})
 		return
 	}
 	userId := context.GetInt64("userId")
 	event, err := models.GetEvenByID(eventId)
 	if err != nil {
-		context.JSON(http.StatusInternalServerError, gin.H{"message": "Could not fetch event."+err.Error()})
+		context.JSON(http.StatusInternalServerError, gin.H{"message": "Could not fetch event." + err.Error()})
 		return
 	}
 
-	if event.UserId != userId{
+	if event.UserId != userId {
 		context.JSON(http.StatusUnauthorized, gin.H{"message": "Not authorized to update event."})
 		return
 	}
@@ -71,7 +71,7 @@ func updateEvent(context *gin.Context) {
 	err = context.ShouldBindBodyWithJSON(&updateEvent)
 
 	if err != nil {
-		context.JSON(http.StatusBadRequest, gin.H{"message": "Could not parse request data."+err.Error()})
+		context.JSON(http.StatusBadRequest, gin.H{"message": "Could not parse request data." + err.Error()})
 		return
 	}
 
@@ -91,7 +91,7 @@ func deleteEvent(context *gin.Context) {
 		context.JSON(http.StatusBadRequest, gin.H{"message": "Could not parse event id."})
 		return
 	}
-    
+
 	userId := context.GetInt64("userId")
 	event, err := models.GetEvenByID(eventId)
 	if err != nil {
@@ -99,7 +99,7 @@ func deleteEvent(context *gin.Context) {
 		return
 	}
 
-	if event.UserId != userId{
+	if event.UserId != userId {
 		context.JSON(http.StatusUnauthorized, gin.H{"message": "Not authorized to delete event."})
 		return
 	}

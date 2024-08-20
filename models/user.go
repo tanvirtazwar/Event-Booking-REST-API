@@ -17,19 +17,19 @@ func (user *USER) Save() error {
 	query := "INSERT INTO users(email, password) VALUES (?, ?)"
 	stmt, err := db.DB.Prepare(query)
 
-	if err != nil{
+	if err != nil {
 		return err
 	}
 
 	defer stmt.Close()
 	hashedPassword, err := utils.HashPassword(user.Password)
-    if err != nil{
+	if err != nil {
 		return err
 	}
 
 	result, err := stmt.Exec(user.Email, hashedPassword)
 
-	if err != nil{
+	if err != nil {
 		return err
 	}
 
@@ -39,7 +39,7 @@ func (user *USER) Save() error {
 	return err
 }
 
-func (user *USER) ValidateCredentials() error{
+func (user *USER) ValidateCredentials() error {
 	query := "SELECT id, password FROM users WHERE email = ?"
 	row := db.DB.QueryRow(query, user.Email)
 

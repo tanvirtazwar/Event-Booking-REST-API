@@ -14,7 +14,7 @@ func signup(context *gin.Context) {
 	err := context.ShouldBindBodyWithJSON(&user)
 
 	if err != nil {
-		context.JSON(http.StatusBadRequest, gin.H{"message": "Could not parse request data. "+err.Error()})
+		context.JSON(http.StatusBadRequest, gin.H{"message": "Could not parse request data. " + err.Error()})
 		return
 	}
 
@@ -26,13 +26,13 @@ func signup(context *gin.Context) {
 	context.JSON(http.StatusCreated, gin.H{"message": "User Saved!", "user": user})
 }
 
-func login(context *gin.Context){
+func login(context *gin.Context) {
 	var user models.USER
 
 	err := context.ShouldBindBodyWithJSON(&user)
 
 	if err != nil {
-		context.JSON(http.StatusBadRequest, gin.H{"message": "Could not parse request data. "+err.Error()})
+		context.JSON(http.StatusBadRequest, gin.H{"message": "Could not parse request data. " + err.Error()})
 		return
 	}
 
@@ -45,7 +45,7 @@ func login(context *gin.Context){
 
 	token, err := utils.GenarateToken(user.Email, user.ID)
 
-	if err != nil{
+	if err != nil {
 		context.JSON(http.StatusInsufficientStorage, gin.H{"message": "Could not authorize."})
 	}
 	context.JSON(http.StatusOK, gin.H{"message": "Login successful", "token": token})
