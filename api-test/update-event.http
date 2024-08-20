@@ -1,9 +1,10 @@
-PUT http://localhost:8080/events/3
+PUT http://localhost:8080/events/1
 content-type: application/json
+authorization: 
 
 {
-    "name": "Test event 3",
+    "name": "Test event 1",
     "description": "A test event",
     "location": "A test location",
-    "dateTime": "2024-06-06T15:30:00.000Z",
+    "dateTime": "2024-06-06T15:30:00.000Z"
 }
