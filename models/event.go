@@ -72,7 +72,7 @@ func GetEvenByID (id int64)(*Event, error){
 func (event Event) Update() error {
 	query := `
 	UPDATE events
-	SET name = ?, description = ?, location = ?, dateTime = ?
+	SET name = ?, description = ?, location = ?, dateTime = ?, user_id = ?
 	WHERE id = ?
 	`
 	stmt, err := db.DB.Prepare(query)
@@ -83,7 +83,7 @@ func (event Event) Update() error {
 
 	defer stmt.Close()
 
-	_, err = stmt.Exec(event.Name, event.Description, event.Location, event.DateTime, event.ID)
+	_, err = stmt.Exec(event.Name, event.Description, event.Location, event.DateTime, event.UserId, event.ID)
 	return err
 }
 
