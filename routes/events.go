@@ -5,6 +5,7 @@ import (
 	"strconv"
 
 	"example.com/event-booking-rest-api/models"
+	"example.com/event-booking-rest-api/utils"
 	"github.com/gin-gonic/gin"
 )
 
@@ -40,8 +41,15 @@ func createEvent(context *gin.Context) {
 		return
 	}
 
+	err := utils.VerifyToken(token)
+
+	if err != nil {
+		context.JSON(http.StatusUnauthorized, gin.H{"message": "Not authorize."})
+		return
+	}
+	
 	var event models.Event
-	err := context.ShouldBindBodyWithJSON(&event)
+	err = context.ShouldBindBodyWithJSON(&event)
 
 	if err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"message": "Could not parse request data."})

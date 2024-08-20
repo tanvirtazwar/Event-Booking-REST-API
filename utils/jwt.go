@@ -4,7 +4,6 @@ import (
 	"errors"
 	"time"
 
-	"github.com/golang-jwt/jwt"
 	"github.com/golang-jwt/jwt/v5"
 )
 
@@ -24,20 +23,20 @@ func VerifyToken(token string) error {
 		_, ok := token.Method.(*jwt.SigningMethodHMAC)
 
 		if !ok {
-			return nil, errors.New("Unexpected signing method")
+			return nil, errors.New("unexpected signing method")
 		}
 
-		return secretKey, nil
+		return []byte(secretKey), nil
 	})
 
 	if err != nil {
-		return errors.New("Could not parse token.")
+		return errors.New("could not parse token")
 	}
 
 	tokenIsValid := parsedToken.Valid
 
 	if !tokenIsValid {
-		return errors.New("Invalid token!")
+		return errors.New("invalid token")
 	}
 
 	/*claims, ok := parsedToken.Claims.(jwt.MapClaims)
