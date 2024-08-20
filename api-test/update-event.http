@@ -3,8 +3,8 @@ content-type: application/json
 authorization:
 
 {
-    "name": "Test event 1",
-    "description": "A test event",
-    "location": "A test location",
-    "dateTime": "2024-06-06T15:30:00.000Z"
+    "name":,
+    "description":,
+    "location":,
+    "dateTime":
 }
