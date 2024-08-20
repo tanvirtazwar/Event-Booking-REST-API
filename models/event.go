@@ -16,7 +16,7 @@ type Event struct {
 }
 
 
-func (e Event) Save() error {
+func (event Event) Save() error {
 	query := `INSERT INTO events(
 	name, description, location, dateTime, user_id
 	) VALUES (?, ?, ?, ?, ?)`
@@ -26,12 +26,12 @@ func (e Event) Save() error {
 	}
 
 	defer stmt.Close()
-	result, err := stmt.Exec(e.Name, e.Description, e.Location, e.DateTime, e.UserId)
+	result, err := stmt.Exec(event.Name, event.Description, event.Location, event.DateTime, event.UserId)
 	if err != nil{
 		return err
 	}
 	id, err := result.LastInsertId()
-	e.ID = id
+	event.ID = id
 	return err
 }
 
@@ -84,5 +84,18 @@ func (event Event) Update() error {
 	defer stmt.Close()
 
 	_, err = stmt.Exec(event.Name, event.Description, event.Location, event.DateTime, event.ID)
+	return err
+}
+
+func (event Event) Delete() error{
+	query := "DELETE FROM events WHERE id = ?"
+	stml, err := db.DB.Prepare(query)
+
+	if err != nil {
+		return err
+	}
+
+	defer stml.Close()
+	_, err = stml.Exec(event.ID)
 	return err
 }
