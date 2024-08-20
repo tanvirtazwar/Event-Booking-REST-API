@@ -12,11 +12,11 @@ type Event struct {
 	Description string    `binding:"required"`
 	Location    string    `binding:"required"`
 	DateTime    time.Time `binding:"required"`
-	UserId      int       
+	UserId      int64       
 }
 
 
-func (event Event) Save() error {
+func (event *Event) Save() error {
 	query := `INSERT INTO events(
 	name, description, location, dateTime, user_id
 	) VALUES (?, ?, ?, ?, ?)`
@@ -72,7 +72,7 @@ func GetEvenByID (id int64)(*Event, error){
 func (event Event) Update() error {
 	query := `
 	UPDATE events
-	SET name = ?, description = ?, location = ?, dateTime = ?, user_id = ?
+	SET name = ?, description = ?, location = ?, dateTime = ?
 	WHERE id = ?
 	`
 	stmt, err := db.DB.Prepare(query)
@@ -83,7 +83,7 @@ func (event Event) Update() error {
 
 	defer stmt.Close()
 
-	_, err = stmt.Exec(event.Name, event.Description, event.Location, event.DateTime, event.UserId, event.ID)
+	_, err = stmt.Exec(event.Name, event.Description, event.Location, event.DateTime, event.ID)
 	return err
 }
 

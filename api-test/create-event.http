@@ -1,11 +1,10 @@
 POST http://localhost:8080/events
 content-type: application/json
-authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZXhhbXBsZS5jb20iLCJleHAiOjE3MjQxODU2NDAsInVzZXJJZCI6MH0.NAB7U8uqRk6VPmcBUVUdsufCed2uUuVyfgAynasOH1o
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QyQGV4YW1wbGUuY29tIiwiZXhwIjoxNzI0MTg3Nzc0LCJ1c2VySWQiOjJ9.KVXe5qrFC_PV7qUHVqEleOWrd0bB4u7Df-zvxouJXjk
 
 {
     "name": "Test event 2",
     "description": "A test event",
     "location": "A test location",
-    "dateTime": "2024-06-06T15:30:00.000Z",
-    "use_id": 2
+    "dateTime": "2024-06-06T15:30:00.000Z"
 }
