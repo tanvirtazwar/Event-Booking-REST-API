@@ -1,6 +1,6 @@
 POST http://localhost:8080/events
 content-type: application/json
-authorization: 
+authorization:
 
 {
     "name": "Test event 2",

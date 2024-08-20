@@ -56,9 +56,15 @@ func updateEvent(context *gin.Context) {
 		context.JSON(http.StatusBadRequest, gin.H{"message": "Could not parse event id."+err.Error()})
 		return
 	}
-	_, err = models.GetEvenByID(eventId)
+	userId := context.GetInt64("userId")
+	event, err := models.GetEvenByID(eventId)
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"message": "Could not fetch event."+err.Error()})
+		return
+	}
+
+	if event.UserId != userId{
+		context.JSON(http.StatusUnauthorized, gin.H{"message": "Not authorized to update event."})
 		return
 	}
 	var updateEvent models.Event
@@ -85,10 +91,16 @@ func deleteEvent(context *gin.Context) {
 		context.JSON(http.StatusBadRequest, gin.H{"message": "Could not parse event id."})
 		return
 	}
-
+    
+	userId := context.GetInt64("userId")
 	event, err := models.GetEvenByID(eventId)
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"message": "Could not fetch event."})
+		return
+	}
+
+	if event.UserId != userId{
+		context.JSON(http.StatusUnauthorized, gin.H{"message": "Not authorized to delete event."})
 		return
 	}
 
